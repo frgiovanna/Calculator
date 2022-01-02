@@ -1,11 +1,15 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-export default (props: any) => {
+interface IDisplay {
+  value: string;
+}
+
+const Display = ({ value }: IDisplay) => {
   return (
     <View style={styles.display}>
       <Text style={styles.displayValue} numberOfLines={1}>
-        {props.value}
+        {value}
       </Text>
     </View>
   );
@@ -24,3 +28,5 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
 });
+
+export default Display;

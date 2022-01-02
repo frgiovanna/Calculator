@@ -1,15 +1,25 @@
 import React from "react";
 import { StyleSheet, Text, Dimensions, TouchableHighlight } from "react-native";
 
-export default (props: any) => {
-  const stylesButton = [styles.button];
-  if (props.double) stylesButton.push(styles.buttonDouble);
-  if (props.triple) stylesButton.push(styles.buttonTriple);
-  if (props.operation) stylesButton.push(styles.operationButton);
+interface IButton {
+  double?: boolean;
+  triple?: boolean;
+  operation?: boolean;
+  label: string;
+  onClick: (label: string) => void;
+}
 
+const Button = ({ double, triple, operation, label, onClick }: IButton) => {
+  
+  const addicionalStyle = () => {
+    if (double) return styles.buttonDouble;
+    if (triple) return styles.buttonTriple;
+    if (operation) return styles.operationButton;
+  }
+  const stylesButton = [styles.button, addicionalStyle()];
   return (
-    <TouchableHighlight onPress={() => props.onClick(props.label)}>
-      <Text style={stylesButton}>{props.label}</Text>
+    <TouchableHighlight onPress={() => onClick(label)}>
+      <Text style={stylesButton}>{label}</Text>
     </TouchableHighlight>
   );
 };
@@ -36,3 +46,5 @@ const styles = StyleSheet.create({
     width: (Dimensions.get("window").width / 4) * 3,
   },
 });
+
+export default Button;
